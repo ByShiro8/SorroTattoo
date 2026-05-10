@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SORRO TATTOO — Tatuajes en Sant Adrià de Besòs</title>
+  <meta name="description" content="Tatuador en Sant Adrià de Besòs (Barcelona). Lettering script, chicano, fineline y realismo. Precios asequibles, certificado de higiene. Pide cita por Instagram." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --bg2:       #111111;
+      --bg3:       #161616;
+      --surface:   #1a1a1a;
+      --border:    #2a2a2a;
+      --text:      #f0f0f0;
+      --muted:     #888888;
+      --gold:      #c8a96e;
+      --gold-dim:  #a8894e;
+      --red:       #e63946;
+      --font-title: 'Playfair Display', Georgia, serif;
+      --font-body:  'Inter', system-ui, sans-serif;
+      --radius:    6px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── Typography ── */
+    .section-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.6rem; }
+    h2.section-title { font-family: var(--font-title); font-size: clamp(2rem, 4vw, 3rem); font-weight: 600; line-height: 1.2; margin-bottom: 1rem; }
+    .section-subtitle { color: var(--muted); max-width: 540px; font-size: 1rem; }
+    .divider { width: 56px; height: 2px; background: var(--gold); margin: 1.4rem 0 2.4rem; }
+
+    /* ── Layout ── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 100px 0; }
+
+    /* ── Navbar ── */
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 900; padding: 18px 0; background: transparent; transition: background var(--transition), padding var(--transition), border-color var(--transition); border-bottom: 1px solid transparent; }
+    .navbar.scrolled { background: rgba(13,13,13,0.96); backdrop-filter: blur(12px); padding: 12px 0; border-color: var(--border); }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--font-title); font-size: 1.25rem; font-weight: 700; letter-spacing: 0.04em; color: var(--gold); }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2.2rem; align-items: center; }
+    .nav-links a { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { padding: 9px 22px; background: var(--gold); color: var(--bg) !important; border-radius: var(--radius); font-weight: 600 !important; transition: background var(--transition), transform var(--transition) !important; }
+    .nav-cta:hover { background: var(--gold-dim) !important; transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); transition: var(--transition); border-radius: 2px; }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; inset: 0; z-index: 800; background: rgba(13,13,13,0.98); backdrop-filter: blur(16px); flex-direction: column; align-items: center; justify-content: center; gap: 2.4rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: var(--font-title); font-size: 2rem; font-weight: 600; color: var(--text); transition: color var(--transition); }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ── Hero ── */
+    #hero { position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding: 0; }
+    .hero-bg { position: absolute; inset: -10%; background: url('img/artista.jpg') center 30% / cover no-repeat; filter: brightness(0.28) blur(2px); will-change: transform; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(10,10,10,0.5) 0%, rgba(0,0,0,0.2) 100%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 2; max-width: 700px; }
+    .hero-eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--gold); }
+    .hero-title { font-family: var(--font-title); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700; line-height: 1.05; color: var(--text); }
+    .hero-title .accent { color: var(--gold); }
+    .hero-title .italic-line { font-style: italic; font-weight: 400; font-size: clamp(2.2rem, 5vw, 4rem); display: block; color: var(--muted); }
+    .hero-tagline { font-size: clamp(1.1rem, 2.2vw, 1.5rem); color: var(--text); font-style: italic; font-family: var(--font-title); margin: 1.6rem 0 2.4rem; opacity: 0.85; }
+    .hero-tagline em { color: var(--gold); font-style: normal; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; padding: 15px 34px; background: var(--gold); color: var(--bg); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; border-radius: var(--radius); transition: background var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .btn-primary:hover { background: var(--gold-dim); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,169,110,0.2); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 0.5rem; padding: 14px 28px; border: 1px solid var(--border); color: var(--text); font-size: 0.9rem; letter-spacing: 0.04em; border-radius: var(--radius); transition: border-color var(--transition), color var(--transition), transform var(--transition); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; animation: bounce 2.4s ease-in-out infinite; z-index: 2; }
+    .hero-scroll i { font-size: 1rem; color: var(--gold); }
+    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+    /* ── Sobre mí ── */
+    #sobre-mi { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; max-width: 720px; margin: 0 auto; }
+    .about-image-wrap { position: relative; }
+    .about-image-wrap::before { content: ''; position: absolute; inset: -12px; border: 1px solid var(--gold); border-radius: var(--radius); opacity: 0.3; transform: translate(10px, 10px); }
+    .about-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: linear-gradient(145deg, #1c1c1c 0%, #232323 50%, #1a1a1a 100%); border-radius: var(--radius); position: relative; z-index: 1; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; }
+    .about-photo-placeholder::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 40%, rgba(200,169,110,0.09) 0%, transparent 60%); }
+    .about-photo-placeholder i { font-size: 4.5rem; color: var(--gold); opacity: 0.2; }
+    .about-photo-placeholder span { color: var(--muted); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .about-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--radius); position: relative; z-index: 1; }
+    .about-badge { position: absolute; bottom: -1.2rem; right: -1.2rem; background: var(--gold); color: var(--bg); width: 90px; height: 90px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 2; font-weight: 700; line-height: 1.1; font-size: 0.75rem; text-align: center; padding: 4px; }
+    .about-badge strong { font-size: 1.5rem; display: block; }
+    .about-cert { display: flex; align-items: center; gap: 0.6rem; padding: 10px 14px; background: rgba(200,169,110,0.07); border: 1px solid rgba(200,169,110,0.2); border-radius: var(--radius); font-size: 0.8rem; color: var(--gold); margin-top: 1rem; }
+    .about-cert i { font-size: 0.9rem; flex-shrink: 0; }
+    .about-styles { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.6rem; }
+    .style-tag { padding: 5px 16px; border: 1px solid var(--border); border-radius: 100px; font-size: 0.8rem; color: var(--muted); transition: border-color var(--transition), color var(--transition), background var(--transition); }
+    .style-tag:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,169,110,0.05); }
+
+    /* ── Galería ── */
+    #galeria { background: var(--bg3); }
+    .gallery-header { text-align: center; margin-bottom: 3rem; }
+    .gallery-header .divider { margin-left: auto; margin-right: auto; }
+    .style-chips { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; margin-bottom: 2.8rem; }
+    .style-chip { display: flex; align-items: center; gap: 0.5rem; padding: 10px 20px; border: 1px solid rgba(200,169,110,0.25); border-radius: 100px; font-size: 0.82rem; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; }
+    .style-chip i { color: var(--gold); font-size: 0.9rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .gallery-item { aspect-ratio: 1; border-radius: var(--radius); overflow: hidden; cursor: pointer; position: relative; background: var(--surface); transition: transform var(--transition), box-shadow var(--transition); }
+    .gallery-item:hover { transform: scale(1.02); box-shadow: 0 20px 48px rgba(0,0,0,0.5); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gph { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.7rem; transition: transform 0.5s ease; }
+    .gallery-item:hover .gph { transform: scale(1.04); }
+    .gph i { font-size: 2.2rem; opacity: 0.22; }
+    .gph span { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.32; }
+    .gph .gph-name { font-family: var(--font-title); font-size: 1rem; font-style: italic; opacity: 0.18; margin-top: 0.2rem; }
+    .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.58); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; opacity: 0; transition: opacity var(--transition); }
+    .gallery-overlay i { font-size: 1.6rem; color: var(--gold); }
+    .gallery-overlay span { font-size: 0.75rem; color: var(--text); letter-spacing: 0.08em; }
+    .gallery-overlay small { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.06em; margin-top: -0.2rem; }
+    .gallery-ig-tile { text-decoration: none; background: linear-gradient(135deg, #1a1109 0%, #0d0d0d 100%); border: 1px solid rgba(200,169,110,0.18); transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .gallery-ig-tile:hover { border-color: var(--gold); box-shadow: 0 0 32px rgba(200,169,110,0.15); transform: scale(1.02); }
+    .ig-tile-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; }
+    .ig-tile-inner i { font-size: 3rem; color: var(--gold); opacity: 0.85; }
+    .ig-tile-handle { font-size: 0.9rem; letter-spacing: 0.1em; color: var(--gold); font-weight: 600; }
+    .ig-tile-cta { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .gallery-ig-cta { text-align: center; margin-top: 2.2rem; }
+    .gallery-ig-cta a { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--gold); font-size: 0.88rem; border: 1px solid rgba(200,169,110,0.3); padding: 10px 24px; border-radius: 100px; transition: all var(--transition); }
+    .gallery-ig-cta a:hover { background: rgba(200,169,110,0.08); border-color: var(--gold); }
+
+    /* ── Lightbox ── */
+    .lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.94); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox-inner { position: relative; max-width: 880px; width: 90%; }
+    #lightboxContent { width: 100%; max-height: 80vh; object-fit: contain; border-radius: var(--radius); }
+    .lightbox-caption { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 1rem; letter-spacing: 0.06em; }
+    .lightbox-close { position: absolute; top: -2.5rem; right: 0; color: var(--muted); font-size: 1.5rem; transition: color var(--transition); }
+    .lightbox-close:hover { color: var(--gold); }
+    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); color: var(--text); font-size: 1.4rem; background: rgba(0,0,0,0.5); border-radius: 50%; transition: background var(--transition), color var(--transition); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; }
+    .lightbox-nav:hover { background: var(--gold); color: var(--bg); }
+    .lightbox-prev { left: -3.5rem; }
+    .lightbox-next { right: -3.5rem; }
+
+    /* ── Precios ── */
+    #precios { background: var(--bg2); }
+    .pricing-header { text-align: center; margin-bottom: 3.5rem; }
+    .pricing-header .divider { margin: 1.4rem auto 0; }
+    .pricing-header .section-subtitle { margin: 0.8rem auto 0; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+    .pricing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 2rem 1.6rem; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); position: relative; overflow: hidden; }
+    .pricing-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: transparent; transition: background var(--transition); }
+    .pricing-card:hover { border-color: rgba(200,169,110,0.4); transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+    .pricing-card:hover::before { background: var(--gold); }
+    .pricing-card.featured { border-color: rgba(200,169,110,0.35); background: linear-gradient(160deg,#1d1a14 0%,#1a1a1a 100%); }
+    .pricing-card.featured::before { background: var(--gold); }
+    .featured-badge { display: inline-block; padding: 3px 12px; background: rgba(200,169,110,0.12); color: var(--gold); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 100px; margin-bottom: 1rem; border: 1px solid rgba(200,169,110,0.25); }
+    .pricing-icon { width: 48px; height: 48px; background: rgba(200,169,110,0.08); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; font-size: 1.3rem; color: var(--gold); }
+    .pricing-card h3 { font-family: var(--font-title); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .pricing-size { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 1.4rem; }
+    .pricing-price { font-size: 2rem; font-weight: 700; color: var(--gold); font-family: var(--font-title); line-height: 1; margin-bottom: 0.3rem; }
+    .pricing-price span { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+    .pricing-from { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.6rem; }
+    .pricing-features { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.8rem; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--muted); }
+    .pricing-features li i { color: var(--gold); font-size: 0.75rem; margin-top: 4px; flex-shrink: 0; }
+    .pricing-cta { display: block; width: 100%; padding: 11px; text-align: center; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.85rem; font-weight: 500; color: var(--text); transition: all var(--transition); }
+    .pricing-cta:hover, .pricing-card.featured .pricing-cta { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+    .pricing-note { text-align: center; margin: 2.5rem auto 0; color: var(--muted); font-size: 0.85rem; padding: 1.2rem 2rem; border: 1px solid var(--border); border-radius: var(--radius); max-width: 620px; }
+    .pricing-note i { color: var(--gold); margin-right: 0.4rem; }
+
+    /* ── Cita ── */
+    #cita { background: var(--bg3); }
+    .appointment-layout { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: start; }
+    .info-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.6rem; }
+    .info-item-icon { width: 40px; height: 40px; flex-shrink: 0; background: rgba(200,169,110,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 1rem; }
+    .info-item h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .info-item p { font-size: 0.82rem; color: var(--muted); }
+    .ig-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--gold); font-weight: 500; font-size: 0.9rem; transition: opacity var(--transition); margin-top: 0.5rem; }
+    .ig-link:hover { opacity: 0.7; }
+    .form-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 2.4rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.2rem; }
+    label { font-size: 0.8rem; font-weight: 500; color: var(--muted); letter-spacing: 0.04em; }
+    label .req { color: var(--gold); margin-left: 2px; }
+    input, select, textarea { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-family: var(--font-body); font-size: 0.92rem; padding: 11px 14px; transition: border-color var(--transition), box-shadow var(--transition); outline: none; width: 100%; }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(200,169,110,0.1); }
+    input::placeholder, textarea::placeholder { color: #444; }
+    select { appearance: none; cursor: pointer; }
+    select option { background: var(--bg2); }
+    textarea { resize: vertical; min-height: 110px; }
+    .file-label { display: flex; align-items: center; gap: 0.8rem; padding: 11px 14px; background: var(--bg2); border: 1px dashed var(--border); border-radius: var(--radius); cursor: pointer; color: var(--muted); font-size: 0.88rem; transition: border-color var(--transition), color var(--transition); }
+    .file-label:hover { border-color: var(--gold); color: var(--gold); }
+    input[type="file"] { display: none; }
+    .file-name { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; min-height: 1rem; }
+    .form-submit { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.6rem; flex-wrap: wrap; }
+    .form-submit p { font-size: 0.78rem; color: var(--muted); }
+    .btn-submit { display: inline-flex; align-items: center; gap: 0.6rem; padding: 13px 28px; background: var(--gold); color: var(--bg); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; border-radius: var(--radius); border: none; transition: background var(--transition), transform var(--transition); }
+    .btn-submit:hover { background: var(--gold-dim); transform: translateY(-2px); }
+
+    /* ── Contacto ── */
+    #contacto { background: var(--bg2); }
+    .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 3rem; }
+    .contact-brand p { color: var(--muted); font-size: 0.88rem; max-width: 280px; line-height: 1.8; margin-top: 1rem; }
+    .social-links { display: flex; gap: 0.8rem; margin-top: 1.4rem; }
+    .social-link { width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--muted); transition: all var(--transition); }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); background: rgba(200,169,110,0.05); transform: translateY(-2px); }
+    .contact-col h4 { font-family: var(--font-title); font-size: 1.1rem; margin-bottom: 1.2rem; color: var(--text); position: relative; padding-bottom: 0.8rem; }
+    .contact-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 28px; height: 1px; background: var(--gold); }
+    .contact-list li { display: flex; align-items: flex-start; gap: 0.7rem; color: var(--muted); font-size: 0.85rem; margin-bottom: 0.9rem; }
+    .contact-list li i { color: var(--gold); margin-top: 3px; font-size: 0.9rem; flex-shrink: 0; }
+    .contact-list li a { transition: color var(--transition); }
+    .contact-list li a:hover { color: var(--gold); }
+
+    /* ── Footer ── */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .footer-copy { font-size: 0.8rem; color: var(--muted); }
+    .footer-copy span { color: var(--gold); }
+    .footer-legal { display: flex; gap: 1.6rem; font-size: 0.78rem; color: var(--muted); }
+    .footer-warning { text-align: center; padding: 0.8rem 1.6rem; background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.12); border-radius: var(--radius); font-size: 0.78rem; color: var(--muted); max-width: 700px; margin: 0.6rem auto 0; }
+    .footer-warning i { color: var(--gold); margin-right: 0.4rem; }
+
+    /* ── Scroll top ── */
+    .scroll-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; background: var(--gold); color: var(--bg); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; z-index: 500; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity var(--transition), transform var(--transition); box-shadow: 0 8px 24px rgba(200,169,110,0.25); border: none; }
+    .scroll-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .scroll-top:hover { background: var(--gold-dim); }
+
+    /* ── Placeholders colores por estilo ── */
+    .gp-lettering  { background: linear-gradient(145deg,#0f0f14 0%,#181820 100%); }
+    .gp-realismo   { background: linear-gradient(145deg,#111510 0%,#1a201a 100%); }
+    .gp-fineline   { background: linear-gradient(145deg,#14131a 0%,#1d1b26 100%); }
+    .gp-japones    { background: linear-gradient(145deg,#141010 0%,#201818 100%); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .pricing-grid { grid-template-columns: repeat(2,1fr); }
+      .contact-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 72px 0; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-image-wrap { max-width: 340px; margin: 0 auto; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+      .appointment-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-legal { flex-direction: column; gap: 0.6rem; text-align: center; }
+      .lightbox-prev { left: -1.5rem; }
+      .lightbox-next { right: -1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .form-card { padding: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#hero" class="nav-logo">SORRO <span>TATTOO</span></a>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#galeria">Galería</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#cita" class="nav-cta">Pedir cita</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#sobre-mi" class="mobile-link">Sobre mí</a>
+  <a href="#galeria" class="mobile-link">Galería</a>
+  <a href="#precios" class="mobile-link">Precios</a>
+  <a href="#contacto" class="mobile-link">Contacto</a>
+  <a href="#cita" class="mobile-link" style="color:var(--gold)">Pedir cita</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal">Tatuaje artístico · Sant Adrià de Besòs, Barcelona</p>
+      <h1 class="hero-title reveal reveal-delay-1">
+        SORRO <span class="accent">TATTOO</span>
+      </h1>
+      <p class="hero-tagline reveal reveal-delay-2">
+        "Del papel a tu piel."
+      </p>
+      <div class="hero-actions reveal reveal-delay-3">
+        <a href="#cita" class="btn-primary"><i class="fa-solid fa-calendar-check"></i> Pedir cita</a>
+        <a href="#galeria" class="btn-outline"><i class="fa-solid fa-images"></i> Ver trabajos</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="reveal">
+        <span class="section-label">Sobre mí</span>
+        <h2 class="section-title">Apasionado del arte<br>desde pequeño</h2>
+        <div class="divider"></div>
+        <p style="color:var(--muted);margin-bottom:1.2rem;">
+          Hola, me llamo <strong style="color:var(--text)">Eric</strong>, aunque en el mundo del tatuaje me conocéis como <strong style="color:var(--gold)">Sorro</strong>. Tengo 19 años y el dibujo ha sido parte de mi vida desde que tengo memoria. De pequeño era imposible separarme de un lápiz: dibujaba en cuadernos, en servilletas, en cualquier papel que tuviera a mano. Esa obsesión por crear con las manos fue creciendo hasta convertirse en mi vocación.
+        </p>
+        <p style="color:var(--muted);margin-bottom:1.2rem;">
+          Estudié un <strong style="color:var(--text)">Grado Medio de Serigrafía Artística</strong>, donde profundicé en composición, color y técnica. Más tarde obtuve el <strong style="color:var(--text)">Certificado Oficial de Higiene para Tatuadores</strong>, exigido en toda España, para ejercer con todas las garantías de seguridad y salud.
+        </p>
+        <p style="color:var(--muted);margin-bottom:1.6rem;">
+          Estoy al principio de este camino y cada tatuaje que hago es una oportunidad de aprender y mejorar. Trabajo desde un estudio privado en Sant Adrià de Besòs y ofrezco <strong style="color:var(--text)">precios asequibles</strong> sin renunciar a la calidad. Todavía me queda mucho, pero cada pieza me acerca más a donde quiero estar.
+        </p>
+
+        <div class="about-cert">
+          <i class="fa-solid fa-shield-halved"></i>
+          Certificado oficial de higiene para tatuadores · Válido en toda España
+        </div>
+        <div class="about-cert" style="margin-top:0.5rem;">
+          <i class="fa-solid fa-graduation-cap"></i>
+          Grado Medio de Serigrafía Artística
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="container">
+    <div class="gallery-header reveal">
+      <span class="section-label">Portfolio</span>
+      <h2 class="section-title">Mis trabajos</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle" style="margin:0 auto;">
+        Cada pieza es única. Diseñadas y tatuadas con dedicación para clientes reales en Sant Adrià de Besòs y alrededores.
+      </p>
+    </div>
+
+    <div class="style-chips reveal">
+      <div class="style-chip"><i class="fa-solid fa-pen-nib"></i> Lettering</div>
+      <div class="style-chip"><i class="fa-solid fa-feather"></i> Fineline</div>
+      <div class="style-chip"><i class="fa-solid fa-circle-half-stroke"></i> Realismo</div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+
+      <div class="gallery-item reveal">
+        <img src="img/tattoo_cuello.jpg" alt="Tatuaje en cuello, obra de Sorro Tattoo" loading="lazy" />
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+
+      <div class="gallery-item reveal reveal-delay-1">
+        <img src="img/tattoo_rosas.jpg" alt="Tatuaje de rosas en el antebrazo, obra de Sorro Tattoo" loading="lazy" />
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+
+      <div class="gallery-item reveal reveal-delay-2">
+        <img src="img/tattoo_muneca.jpg" alt="Tatuaje en muñeca, obra de Sorro Tattoo" loading="lazy" />
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+
+      <div class="gallery-item reveal">
+        <img src="img/tattoo_antebrazo.jpg" alt="Tatuaje en antebrazo, obra de Sorro Tattoo" loading="lazy" />
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+
+      <div class="gallery-item reveal reveal-delay-1">
+        <img src="img/tattoo_mano.jpg" alt="Tatuaje en mano, obra de Sorro Tattoo" loading="lazy" />
+        <div class="gallery-overlay"><i class="fa-solid fa-expand"></i></div>
+      </div>
+
+      <!-- Extra decorativo -->
+      <a class="gallery-item gallery-ig-tile reveal reveal-delay-2" href="https://www.instagram.com/sorro.tattoo/" target="_blank" rel="noopener noreferrer">
+        <div class="ig-tile-inner">
+          <i class="fa-brands fa-instagram"></i>
+          <span class="ig-tile-handle">@sorro.tattoo</span>
+          <span class="ig-tile-cta">Ver más trabajos</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+    <div id="lightboxContent" style="min-height:300px;background:var(--surface);border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
+      <i class="fa-solid fa-image" style="font-size:3rem;color:var(--gold);opacity:0.3"></i>
+    </div>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+</div>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <span class="section-label">Tarifas</span>
+      <h2 class="section-title">Precios asequibles</h2>
+      <div class="divider"></div>
+      <p class="section-subtitle">
+        Precios competitivos para que el arte en tu piel sea accesible. El presupuesto final se cierra en la consulta gratuita previa.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-icon"><i class="fa-solid fa-minimize"></i></div>
+        <h3>Pequeño</h3>
+        <p class="pricing-size">5 – 10 cm</p>
+        <p class="pricing-price">40€ <span>/ sesión</span></p>
+        <p class="pricing-from">Desde · lettering, fineline, minimalista</p>
+        <ul class="pricing-features">
+          <li><i class="fa-solid fa-check"></i> Lettering script o chicano pequeño</li>
+          <li><i class="fa-solid fa-check"></i> Diseño fino o minimalista</li>
+          <li><i class="fa-solid fa-check"></i> Sesión de 1–2 horas</li>
+          <li><i class="fa-solid fa-check"></i> Consulta previa gratuita</li>
+        </ul>
+        <a href="#cita" class="pricing-cta">Solicitar cita</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <div class="pricing-icon"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></div>
+        <h3>Mediano</h3>
+        <p class="pricing-size">10 – 20 cm</p>
+        <p class="pricing-price">80€ <span>/ sesión</span></p>
+        <p class="pricing-from">Desde · con detalle y sombreado</p>
+        <ul class="pricing-features">
+          <li><i class="fa-solid fa-check"></i> Lettering con detalle</li>
+          <li><i class="fa-solid fa-check"></i> Realismo o estilo japonés</li>
+          <li><i class="fa-solid fa-check"></i> Sesión de 2–4 horas</li>
+          <li><i class="fa-solid fa-check"></i> Consulta previa gratuita</li>
+        </ul>
+        <a href="#cita" class="pricing-cta">Solicitar cita</a>
+      </div>
+
+      <div class="pricing-card featured reveal reveal-delay-2">
+        <div class="featured-badge">Más solicitado</div>
+        <div class="pricing-icon"><i class="fa-solid fa-maximize"></i></div>
+        <h3>Grande</h3>
+        <p class="pricing-size">20 cm o más</p>
+        <p class="pricing-price">150€ <span>/ sesión</span></p>
+        <p class="pricing-from">Desde · puede requerir varias sesiones</p>
+        <ul class="pricing-features">
+          <li><i class="fa-solid fa-check"></i> Piezas de gran formato</li>
+          <li><i class="fa-solid fa-check"></i> Mangas, costados, espaldas</li>
+          <li><i class="fa-solid fa-check"></i> Presupuesto personalizado</li>
+          <li><i class="fa-solid fa-check"></i> Boceto y diseño incluidos</li>
+        </ul>
+        <a href="#cita" class="pricing-cta">Solicitar cita</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-3">
+        <div class="pricing-icon"><i class="fa-solid fa-pen-nib"></i></div>
+        <h3>Personalizado</h3>
+        <p class="pricing-size">Diseño exclusivo tuyo</p>
+        <p class="pricing-price">A consultar</p>
+        <p class="pricing-from">Consulta gratuita sin compromiso</p>
+        <ul class="pricing-features">
+          <li><i class="fa-solid fa-check"></i> Boceto original desde cero</li>
+          <li><i class="fa-solid fa-check"></i> Revisiones del diseño incluidas</li>
+          <li><i class="fa-solid fa-check"></i> Cualquier estilo o técnica</li>
+          <li><i class="fa-solid fa-check"></i> Precio tras valoración</li>
+        </ul>
+        <a href="#cita" class="pricing-cta">Consultar gratis</a>
+      </div>
+    </div>
+
+    <p class="pricing-note reveal">
+      <i class="fa-solid fa-circle-info"></i>
+      Se pide una <strong style="color:var(--text)">señal del 30%</strong> para reservar la cita. El resto se abona el día del tatuaje. Precios orientativos — el presupuesto final se acuerda en la consulta previa gratuita.
+    </p>
+  </div>
+</section>
+
+<!-- PEDIR CITA -->
+<section id="cita">
+  <div class="container">
+    <div class="appointment-layout">
+
+      <div class="reveal">
+        <span class="section-label">Reserva tu sesión</span>
+        <h2 class="section-title">Pedir cita</h2>
+        <div class="divider"></div>
+        <p style="color:var(--muted);margin-bottom:2rem;">
+          Cuéntame tu idea y te respondo en menos de 48 horas para confirmar disponibilidad y hablar del diseño. La consulta es siempre gratuita y sin compromiso.
+        </p>
+
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-solid fa-comments"></i></div>
+          <div><h4>Consulta gratuita</h4><p>Hablamos de tu idea antes de comprometerte a nada.</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div><h4>Higiene certificada</h4><p>Certificado oficial vigente. Material desechable y estudio esterilizado.</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-solid fa-tag"></i></div>
+          <div><h4>Precios asequibles</h4><p>Arte de calidad al alcance de todos. Sin letra pequeña.</p></div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-icon"><i class="fa-brands fa-instagram"></i></div>
+          <div>
+            <h4>O escríbeme por Instagram</h4>
+            <p>Respondo rápido por DM:</p>
+            <a href="https://www.instagram.com/sorro.tattoo/" target="_blank" rel="noopener noreferrer" class="ig-link">
+              <i class="fa-brands fa-instagram"></i> @sorro.tattoo
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card reveal reveal-delay-2">
+        <form id="appointmentForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre completo <span class="req">*</span></label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico <span class="req">*</span></label>
+              <input type="email" id="email" name="email" placeholder="tu@correo.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="telefono">Teléfono (opcional)</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="+34 600 000 000" />
+            </div>
+            <div class="form-group">
+              <label for="zona">Zona del cuerpo <span class="req">*</span></label>
+              <select id="zona" name="zona" required>
+                <option value="" disabled selected>Selecciona una zona</option>
+                <option>Antebrazo</option>
+                <option>Brazo completo / manga</option>
+                <option>Muñeca / mano / dorso</option>
+                <option>Pecho</option>
+                <option>Costado / costilla</option>
+                <option>Espalda</option>
+                <option>Pierna</option>
+                <option>Tobillo / pie</option>
+                <option>Cuello</option>
+                <option>Otra zona</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="tamano">Tamaño aproximado <span class="req">*</span></label>
+            <select id="tamano" name="tamano" required>
+              <option value="" disabled selected>¿Qué tamaño tienes en mente?</option>
+              <option>Pequeño (5–10 cm) · desde 40€</option>
+              <option>Mediano (10–20 cm) · desde 80€</option>
+              <option>Grande (20 cm o más) · desde 150€</option>
+              <option>Pieza grande / manga</option>
+              <option>No lo sé aún, necesito consejo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="estilo">Estilo que te interesa</label>
+            <select id="estilo" name="estilo">
+              <option value="" disabled selected>¿Tienes algún estilo en mente?</option>
+              <option>Lettering Script</option>
+              <option>Lettering Chicano</option>
+              <option>Fineline</option>
+              <option>Realismo</option>
+              <option>Estilo Japonés</option>
+              <option>Blackwork</option>
+              <option>No lo sé, quiero consejo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción de tu idea <span class="req">*</span></label>
+            <textarea id="descripcion" name="descripcion" rows="4" placeholder="Cuéntame qué tienes en mente: texto, elementos, referencias, significado... Cuanto más detalle, mejor puedo ayudarte." required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Imagen de referencia (opcional)</label>
+            <label class="file-label" for="referencia">
+              <i class="fa-solid fa-image"></i>
+              <span>Adjuntar imagen de referencia</span>
+            </label>
+            <input type="file" id="referencia" name="referencia" accept="image/*,.pdf" />
+            <span class="file-name" id="fileName">Ningún archivo seleccionado</span>
+          </div>
+          <div class="form-submit">
+            <p>* Campos obligatorios</p>
+            <button type="submit" class="btn-submit">
+              <i class="fa-solid fa-paper-plane"></i> Enviar solicitud
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-brand reveal">
+        <span class="nav-logo" style="font-size:1.5rem;display:block">INK <span style="color:var(--text)">BY SORRO</span></span>
+        <p>Tatuador joven con pasión por el detalle. Arte asequible y de calidad en Sant Adrià de Besòs, Barcelona.</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/sorro.tattoo/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram @sorro.tattoo">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@sorro_tattoos" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok @sorro_tattoos">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-col reveal reveal-delay-1">
+        <h4>Contacto</h4>
+        <ul class="contact-list">
+          <li><i class="fa-brands fa-instagram"></i><span><a href="https://www.instagram.com/sorro.tattoo/" target="_blank" rel="noopener noreferrer">@sorro.tattoo</a> (DM para citas)</span></li>
+          <li><i class="fa-brands fa-tiktok"></i><span><a href="https://www.tiktok.com/@sorro_tattoos" target="_blank" rel="noopener noreferrer">@sorro_tattoos</a></span></li>
+          <li><i class="fa-solid fa-envelope"></i><span><a href="mailto:tatuador@email.com">tatuador@email.com</a></span></li>
+          <li><i class="fa-solid fa-location-dot"></i><span>Estudio privado en<br>Sant Adrià de Besòs, Barcelona</span></li>
+        </ul>
+      </div>
+
+      <div class="contact-col reveal reveal-delay-2">
+        <h4>Horario</h4>
+        <ul class="contact-list">
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <div><strong style="color:var(--text);font-size:0.82rem;">Lunes – Viernes</strong><br>11:00 – 20:00</div>
+          </li>
+          <li>
+            <i class="fa-solid fa-clock"></i>
+            <div><strong style="color:var(--text);font-size:0.82rem;">Sábados</strong><br>11:00 – 15:00 (con cita previa)</div>
+          </li>
+          <li>
+            <i class="fa-solid fa-moon"></i>
+            <div><strong style="color:var(--text);font-size:0.82rem;">Domingos</strong><br>Cerrado</div>
+          </li>
+          <li><i class="fa-solid fa-circle-info"></i><span>La dirección exacta del estudio se facilita al confirmar la cita.</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2025 <span>SORRO TATTOO</span>. Todos los derechos reservados.</p>
+      <ul class="footer-legal">
+        <li>Política de privacidad</li>
+        <li><i class="fa-solid fa-triangle-exclamation" style="color:var(--gold);font-size:0.7rem;margin-right:4px"></i>Cancelación con &lt;24h pierde la señal</li>
+      </ul>
+    </div>
+    <p class="footer-warning">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <strong>El tatuaje es permanente.</strong> Consulta siempre con el artista antes de decidir. Menores de 18 años requieren autorización paterna y presencia del tutor legal.
+    </p>
+  </div>
+</footer>
+
+<button class="scroll-top" id="scrollTop" aria-label="Volver arriba">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+<script>
+  // Navbar
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  function closeMobileMenu() { hamburger.classList.remove('active'); mobileMenu.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); document.body.style.overflow = ''; }
+  hamburger.addEventListener('click', () => { const o = mobileMenu.classList.toggle('open'); hamburger.classList.toggle('active', o); hamburger.setAttribute('aria-expanded', String(o)); document.body.style.overflow = o ? 'hidden' : ''; });
+  document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMobileMenu));
+
+  // Hero parallax
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', () => {
+      heroBg.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+    }, { passive: true });
+  }
+
+  // Reveal
+  const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); ro.unobserve(e.target); } }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxContent = document.getElementById('lightboxContent');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  let currentIndex = 0, visibleItems = [];
+
+  function getVisibleItems() { return [...galleryItems].filter(i => i.style.display !== 'none'); }
+
+  function renderLightbox() {
+    const item = visibleItems[currentIndex];
+    const title = item.dataset.title || '';
+    const realImg = item.querySelector('img');
+    if (realImg) {
+      lightboxContent.innerHTML = `<img src="${realImg.src}" alt="${realImg.alt}" style="width:100%;max-height:80vh;object-fit:contain;border-radius:6px">`;
+    } else {
+      const ph = item.querySelector('.gph');
+      const icon = ph ? ph.querySelector('i') : null;
+      lightboxContent.innerHTML = `<div style="min-height:340px;background:var(--surface);border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;">
+        ${icon ? `<i class="${icon.className}" style="${icon.getAttribute('style')};font-size:4rem;opacity:0.35"></i>` : ''}
+        <span style="color:var(--muted);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase">Próximamente</span>
+        <a href="https://www.instagram.com/sorro.tattoo/" target="_blank" style="color:var(--gold);font-size:0.82rem;display:flex;align-items:center;gap:0.5rem;margin-top:0.5rem"><i class="fa-brands fa-instagram"></i>Ver en @sorro.tattoo</a>
+      </div>`;
+    }
+    lightboxCaption.textContent = title + (visibleItems.length > 1 ? ' · ' + (currentIndex + 1) + ' / ' + visibleItems.length : '');
+    lightboxPrev.style.display = visibleItems.length > 1 ? '' : 'none';
+    lightboxNext.style.display = visibleItems.length > 1 ? '' : 'none';
+  }
+
+  function openLightbox(index) { visibleItems = getVisibleItems(); currentIndex = index; renderLightbox(); lightbox.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { lightbox.classList.remove('open'); document.body.style.overflow = ''; }
+
+  galleryItems.forEach(item => {
+    item.addEventListener('click', () => { visibleItems = getVisibleItems(); const idx = visibleItems.indexOf(item); openLightbox(idx >= 0 ? idx : 0); });
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  lightboxPrev.addEventListener('click', () => { currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length; renderLightbox(); });
+  lightboxNext.addEventListener('click', () => { currentIndex = (currentIndex + 1) % visibleItems.length; renderLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') { currentIndex = (currentIndex-1+visibleItems.length)%visibleItems.length; renderLightbox(); }
+    if (e.key === 'ArrowRight') { currentIndex = (currentIndex+1)%visibleItems.length; renderLightbox(); }
+  });
+
+  // File input
+  document.getElementById('referencia').addEventListener('change', function() {
+    document.getElementById('fileName').textContent = this.files.length > 0 ? this.files[0].name : 'Ningún archivo seleccionado';
+  });
+
+  // Form → mailto
+  document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const zona = document.getElementById('zona').value;
+    const tamano = document.getElementById('tamano').value;
+    const estilo = document.getElementById('estilo').value;
+    const descripcion = document.getElementById('descripcion').value.trim();
+    const fileInput = document.getElementById('referencia');
+    const tieneImagen = fileInput.files.length > 0 ? 'Sí (' + fileInput.files[0].name + ')' : 'No adjuntada';
+
+    const subject = 'Solicitud de cita – ' + nombre;
+    const body =
+      'NUEVA SOLICITUD DE CITA\n========================\n\n' +
+      'Nombre:    ' + nombre + '\n' +
+      'Email:     ' + email + '\n' +
+      'Teléfono:  ' + (telefono || 'No indicado') + '\n' +
+      'Zona:      ' + zona + '\n' +
+      'Tamaño:    ' + tamano + '\n' +
+      'Estilo:    ' + (estilo || 'No indicado') + '\n\n' +
+      'IDEA:\n' + descripcion + '\n\n' +
+      'Referencia: ' + tieneImagen + '\n\n---\nWeb SORRO TATTOO';
+
+    window.location.href = 'mailto:tatuador@email.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+
+    const btn = this.querySelector('.btn-submit');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Solicitud preparada!';
+    btn.style.background = '#2d7a4f';
+    setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 4000);
+  });
+
+  // Scroll top
+  const scrollTopBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => scrollTopBtn.classList.toggle('visible', window.scrollY > 500), { passive: true });
+  scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // Active nav on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+  sections.forEach(s => new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) navLinks.forEach(l => l.style.color = l.getAttribute('href') === '#'+e.target.id ? 'var(--gold)' : ''); });
+  }, { threshold: 0.4 }).observe(s));
+</script>
+</body>
+</html>
